@@ -26,4 +26,11 @@ export default class MotocycleModel {
         });
         return filtered;
     }
+
+    filterBy = (data, input) => {
+        const filtered = data.filter(obj => {
+            return obj['Type of moto'] === input.toLowerCase();
+        });
+        return filtered;
+    }
 }

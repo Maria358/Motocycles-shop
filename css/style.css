@@ -74,3 +74,11 @@ body {
 .form-control {
     background-color: rgba(0, 0, 0, 0.287);
 }
+.card-price {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    font-weight: bold;
+    color: rgb(168, 3, 3);
+    font-size: 20px;
+}
