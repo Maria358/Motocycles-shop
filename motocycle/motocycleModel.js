@@ -3,28 +3,16 @@ import Model from './../common/model.js';
 export default class MotocycleModel extends Model {
     constructor() {
         super();
+        this.sheetData()
     }
 
-    getData = async () => {
-        this.data = await this.sheetData();
+    getData = () => {
+        this.data = this.sheetData();
         return this.data;
-    }
+    };
 
-    sort = async (option) => {
-        const data = await this.sheetData();
-        const sorted = data.sort((a, b) => {
-            if (a[option] !== b[option]) {
-                return a[option] - b[option];
-            };
-        });
-        return sorted;
-    }
-
-    filterBy = async (input) => {
-        const data = await this.sheetData();
-        const filtered = data.filter(obj => {
-            return obj['Type of moto'] === input.toLowerCase();
-        });
+    filterBy = (value) => {
+        const filtered = this.data.filter((obj) => obj['Type of moto'] === value.toLowerCase());
         return filtered;
-    }
+    };
 }

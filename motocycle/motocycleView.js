@@ -1,69 +1,38 @@
-export default class MotocycleView {
+import View from '../common/view.js';
+import cardRender from '../common/cardRender.js';
+
+export default class MotocycleView extends View {
     dom = {
-        cartBox: document.querySelector('.cart-box'),
-        sortBy: document.querySelectorAll('.sortby'),
-        filterBy: document.querySelectorAll('.type'),
-        sortVal: document.querySelector('.sortVal'),
-        filterVal: document.querySelector('.filterVal'),
-        inputVal: document.querySelector('.form-control')
+        cartBox: document.querySelector('.cart-box')
     };
 
-    constructor(onSelectSort, onInput, onSelectFilter) {
-        this.giveAction(this.dom.sortBy, this.dom.sortVal, onSelectSort);
-        this.giveAction(this.dom.filterBy, this.dom.filterVal, onSelectFilter);
-
-        this.dom.inputVal.addEventListener('input', () => {
-            this.hideEl();
-            onInput();
-        })
-    };
-
-    giveAction(collection, element, handler) {
-        collection.forEach(option => option.addEventListener('click', event => {
-            element.textContent = event.target.textContent;
-            this.hideEl();
-            handler();
-        }));
+    constructor() {
+        super();
     }
 
-    getNeedVal = () => ({
-        sortVal: this.dom.sortVal.textContent,
-        inputVal: this.dom.inputVal.value,
-        filterVal: this.dom.filterVal.textContent
-    })
+    render(data) {
+        const listHTML = data.map((el) => cardRender(el));
+        this.insertHTML(listHTML, this.dom.cartBox);
 
-    hideEl() {
-        const cards = document.querySelectorAll('.card');
-        cards.forEach(card => card.style.display = 'none');
-    };
+    }
 
-    render = (data) => {
-        this.listHTML = data.map((el) => {
-            return `
-            <div class="card" style="width: 15rem;">
-            <div class="card-img">
-                <img src=${el.Image} class="card-img-top" alt="...">
-                <p class="card-price">$${el.Price}</p>
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">${el.Brand} ${el.Model}</h5>
-              <p class="type">${el['Type of moto']}</p>
-              <p class="card-text">${this.shortDescription(el.Description)}</p>
-              <a href="#" class="btn btn-primary">Open</a>
-            </div>
-          </div>
-        `;
-        });
-        this.insertHTML(this.listHTML);
-    };
-
-    shortDescription = (str) => {
-        return `${str.slice(0, 100)}...`;
-    };
-
-    insertHTML = (list) => {
-        for (const item of list) {
-            this.dom.cartBox.insertAdjacentHTML('beforeend', item);
-        }
-    };
+    // render = (data) => {
+    //     const listHTML = data.map((el) => {
+    //         return `
+    //         <div class="card" style="width: 15rem;">
+    //         <div class="card-img">
+    //             <img src=${el.Image} class="card-img-top" alt="...">
+    //             <p class="card-price">$${el.Price}</p>
+    //         </div>
+    //         <div class="card-body">
+    //           <h5 class="card-title">${el.Brand} ${el.Model}</h5>
+    //           <p class="type">${el['Type of moto']}</p>
+    //           <p class="card-text">${this.shortDescription(el.Description)}</p>
+    //           <a href="#" class="btn btn-primary">Open</a>
+    //         </div>
+    //       </div>
+    //     `;
+    //     });
+    //     this.insertHTML(listHTML, this.dom.cartBox);
+    // };
 }
