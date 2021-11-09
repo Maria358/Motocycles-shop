@@ -21,10 +21,14 @@ export default class MotocycleModel extends Model {
     }
 
     search = (input) => {
-        console.log(input)
         const filtered = this.data.filter(obj => {
             return obj.Brand.toLowerCase().includes(input.toLowerCase());
         });
         return filtered;
     }
+
+    filterBy = (value) => {
+        const filtered = this.data.filter((obj) => obj['Type of moto'] === value.toLowerCase());
+        return filtered;
+    };
 }
