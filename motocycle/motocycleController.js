@@ -1,5 +1,6 @@
 import MotocycleModel from './motocycleModel.js';
 import MotocycleView from './motocycleView.js';
+import Observer from './../common/observer.js';
 
 export default class MotocycleController {
     constructor() {
@@ -7,30 +8,24 @@ export default class MotocycleController {
         this.model = new MotocycleModel();
     }
 
-    getData = async () => {
-        this.data = await this.model.sheetData();
-        return this.data;
-    }
-
     init = async () => {
-        this.view.render(await this.getData());
+        this.view.render(await this.model.getData());
     }
 
     onSelectSort = async () => {
         const { sortVal } = this.view.getNeedVal();
-        const sorted = this.model.sort(await this.getData(), sortVal);
+        const sorted = await this.model.sort(sortVal);
         this.view.render(sorted);
-    }
-
-    onInput = async () => {
-        const { inputVal } = this.view.getNeedVal();
-        const filtered = this.model.search(await this.getData(), inputVal);
-        this.view.render(filtered);
     }
 
     onSelectFilter = async () => {
         const { filterVal } = this.view.getNeedVal();
-        const filtered = this.model.filterBy(await this.getData(), filterVal);
+        const filtered = await this.model.filterBy(filterVal);
         this.view.render(filtered);
+    }
+
+    onInput = () => {
+        const { inputVal } = this.view.getNeedVal();
+        Observer.notify(Observer.events.onSearchByName, inputVal);
     }
 }

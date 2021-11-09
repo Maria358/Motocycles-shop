@@ -1,17 +1,17 @@
-import { opensheet } from '../common/config.js';
+import Model from './../common/model.js';
 
-export default class MotocycleModel {
-    sheetData = async () => {
-        try {
-            const response = await fetch(opensheet);
-            this.data = await response.json();
-            return this.data;
-        } catch (e) {
-            console.log(e.message);
-        }
-    };
+export default class MotocycleModel extends Model {
+    constructor() {
+        super();
+    }
 
-    sort = (data, option) => {
+    getData = async () => {
+        this.data = await this.sheetData();
+        return this.data;
+    }
+
+    sort = async (option) => {
+        const data = await this.sheetData();
         const sorted = data.sort((a, b) => {
             if (a[option] !== b[option]) {
                 return a[option] - b[option];
@@ -20,14 +20,8 @@ export default class MotocycleModel {
         return sorted;
     }
 
-    search = (data, input) => {
-        const filtered = data.filter(obj => {
-            return obj.Brand.includes(input);
-        });
-        return filtered;
-    }
-
-    filterBy = (data, input) => {
+    filterBy = async (input) => {
+        const data = await this.sheetData();
         const filtered = data.filter(obj => {
             return obj['Type of moto'] === input.toLowerCase();
         });

@@ -22,7 +22,7 @@ export default class MotocycleView {
         collection.forEach(option => option.addEventListener('click', event => {
             element.textContent = event.target.textContent;
             this.hideEl();
-            handler()
+            handler();
         }));
     }
 
