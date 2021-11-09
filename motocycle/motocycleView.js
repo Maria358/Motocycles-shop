@@ -2,20 +2,11 @@ export default class MotocycleView {
     dom = {
         cartBox: document.querySelector('.cart-box'),
         sortBy: document.querySelectorAll('.sortby'),
-        filterBy: document.querySelectorAll('.type'),
-        sortVal: document.querySelector('.sortVal'),
-        filterVal: document.querySelector('.filterVal'),
-        inputVal: document.querySelector('.form-control')
+        sortVal: document.querySelector('.sortVal')
     };
 
-    constructor(onSelectSort, onInput, onSelectFilter) {
+    constructor(onSelectSort) {
         this.giveAction(this.dom.sortBy, this.dom.sortVal, onSelectSort);
-        this.giveAction(this.dom.filterBy, this.dom.filterVal, onSelectFilter);
-
-        this.dom.inputVal.addEventListener('input', () => {
-            this.hideEl();
-            onInput();
-        })
     };
 
     giveAction(collection, element, handler) {
@@ -27,9 +18,7 @@ export default class MotocycleView {
     }
 
     getNeedVal = () => ({
-        sortVal: this.dom.sortVal.textContent,
-        inputVal: this.dom.inputVal.value,
-        filterVal: this.dom.filterVal.textContent
+        sortVal: this.dom.sortVal.textContent
     })
 
     hideEl() {
@@ -38,6 +27,7 @@ export default class MotocycleView {
     };
 
     render = (data) => {
+        this.hideEl();
         this.listHTML = data.map((el) => {
             return `
             <div class="card" style="width: 15rem;">

@@ -4,8 +4,9 @@ import Observer from './../common/observer.js';
 
 export default class MotocycleController {
     constructor() {
-        this.view = new MotocycleView(this.onSelectSort, this.onInput, this.onSelectFilter);
+        this.view = new MotocycleView(this.onSelectSort);
         this.model = new MotocycleModel();
+        Observer.subscribe(Observer.events.onSearchByName, this.onInput);
     }
 
     init = async () => {
@@ -18,14 +19,9 @@ export default class MotocycleController {
         this.view.render(sorted);
     }
 
-    onSelectFilter = async () => {
-        const { filterVal } = this.view.getNeedVal();
-        const filtered = await this.model.filterBy(filterVal);
+    onInput = (input) => {
+        const filtered = this.model.search(input);
+        console.log('filtered', filtered)
         this.view.render(filtered);
-    }
-
-    onInput = () => {
-        const { inputVal } = this.view.getNeedVal();
-        Observer.notify(Observer.events.onSearchByName, inputVal);
     }
 }
