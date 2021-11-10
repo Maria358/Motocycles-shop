@@ -1,13 +1,14 @@
-import Model from "../common/model.js";
+import MotocycleModel from "../motocycle/motocycleModel.js";
 
-export default class WindowModel extends Model {
+export default class WindowModel extends MotocycleModel {
     constructor() {
         super();
-        this.data = this.sheetData();
+        this.data;
     }
 
-    getCertainMoto(model) {
-        const motoData = this.data.filter(moto => moto.Model === model.split(' ')[1]);
+    getCertainMoto(certainMoto) {
+        const model = certainMoto.split(' ').slice(1).join(' ');
+        const motoData = this.data.filter(moto => moto.Model === model);
         return motoData;
     }
 }

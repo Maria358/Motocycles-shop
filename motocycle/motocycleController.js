@@ -4,19 +4,21 @@ import Observer from './../common/observer.js';
 
 export default class MotocycleController {
     constructor() {
-        this.view = new MotocycleView(this.onSelectSort, this.onOpen);
+        this.view = new MotocycleView(this.onOpen);
         this.model = new MotocycleModel();
         Observer.subscribe(Observer.events.onCategoryFilter, this.onfilterBy);
         Observer.subscribe(Observer.events.onSearchByName, this.onInput);
+        Observer.subscribe(Observer.events.onSort, this.onSelectSort);
     }
 
     init = async () => {
         this.view.paginationRender(await this.model.getData());
     };
 
-    onSelectSort = async () => {
-        const { sortVal } = this.view.getNeedVal();
-        const sorted = await this.model.sort(sortVal);
+
+    onSelectSort = (sortVal) => {
+        const sorted = this.model.sort(sortVal);
+        this.view.render(sorted);
         this.view.paginationRender(sorted);
     };
 
