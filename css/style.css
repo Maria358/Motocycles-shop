@@ -4,11 +4,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
 }
 
 body {
     background-color: rgba(128, 128, 128, 0.13);
-    font-family: "Roboto", sans-serif;
     font-weight: 300;
 }
 .logo {
@@ -71,9 +71,6 @@ body {
     background-color: rgba(255, 255, 255, 0.555);
     color: black;
 }
-.form-control {
-    background-color: rgba(0, 0, 0, 0.287);
-}
 .card-price {
     position: absolute;
     left: 20px;
@@ -81,4 +78,115 @@ body {
     font-weight: bold;
     color: rgb(168, 3, 3);
     font-size: 20px;
+}
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    width: 60%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+}
+
+@-webkit-keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0;
+    }
+    to {
+        top: 0;
+        opacity: 1;
+    }
+}
+
+@keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0;
+    }
+    to {
+        top: 0;
+        opacity: 1;
+    }
+}
+
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header {
+    padding: 10px 25px;
+    color: black;
+    font-size: 35px;
+}
+
+.modal-body {
+    padding: 2px 16px;
+}
+
+.modal-footer {
+    padding: 2px 16px;
+    color: black;
+}
+
+@keyframes shake {
+    0%,
+    50%,
+    100% {
+        transform: rotate(0deg);
+    }
+    10%,
+    30% {
+        transform: rotate(-10deg);
+    }
+    20%,
+    40% {
+        transform: rotate(10deg);
+    }
+}
+
+.icons:hover {
+    animation: shake 1.2s ease-in-out;
+    color: black;
+}
+.icons {
+    font-size: 30px;
+    color: black;
+}
+.window-btn-container {
+    margin: 0 100px 0 40rem;
+}
+.window-photo {
+    margin-left: 350px;
+}
+.close {
+    color: black;
 }

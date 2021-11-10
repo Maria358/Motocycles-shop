@@ -4,7 +4,7 @@ import Observer from './../common/observer.js';
 
 export default class MotocycleController {
     constructor() {
-        this.view = new MotocycleView(this.onSelectSort);
+        this.view = new MotocycleView(this.onSelectSort, this.onOpen);
         this.model = new MotocycleModel();
         Observer.subscribe(Observer.events.onCategoryFilter, this.onfilterBy);
         Observer.subscribe(Observer.events.onSearchByName, this.onInput);
@@ -28,5 +28,9 @@ export default class MotocycleController {
     onfilterBy = (value) => {
         const filtered = this.model.filterBy(value);
         this.view.render(filtered);
+    }
+
+    onOpen = (moto) => {
+        Observer.notify(Observer.events.onOpen, moto)
     }
 }
