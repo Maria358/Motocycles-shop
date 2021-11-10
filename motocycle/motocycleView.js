@@ -14,7 +14,6 @@ export default class MotocycleView extends View {
         super();
         this.onOpen = onOpen;
         this.giveAction(this.dom.sortBy, this.dom.sortVal, onSelectSort);
-        this.pagination(this.dom.paginationItems)
     };
 
     giveAction(collection, element, handler) {
@@ -55,5 +54,7 @@ export default class MotocycleView extends View {
             const moto = event.path[1].querySelector('.card-title').textContent;
             this.onOpen(moto);
         }))        
+
+        this.pagination(data, this.dom.paginationItems)
     }
 }
