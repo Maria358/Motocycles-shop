@@ -1,5 +1,5 @@
 export default function motoRender(data) {
-    return ` <div class="modal-content">
+  return ` <div class="modal-content">
     <div class="modal-header">
       <p>${data[0].Brand} ${data[0].Model}</p>
       <i class="far fa-times-circle close"></i>
@@ -20,7 +20,7 @@ export default function motoRender(data) {
     <a class="icons"><i class="fab fa-telegram-plane"></i></a>
     <a class="icons"><i class="fab fa-whatsapp"></i></a>       
     <div class="window-btn-container">
-    <button type="button" class="btn btn-primary">Order</button>
+    <button type="button" class="btn btn-primary addToBskt">Add to basket</button>
     </div>
     </div>
   </div>`;
