@@ -13,6 +13,9 @@ export default class MotocycleModel extends Model {
     }
 
     sort = (option) => {
+        if (this.filtered) {
+            this.data = this.filtered;
+        }
         this.sorted = this.data.sort((a, b) => {
             if (a[option] !== b[option]) {
                 return a[option] - b[option];
@@ -30,10 +33,10 @@ export default class MotocycleModel extends Model {
     }
 
     filterBy = (value) => {
-        const filtered = this.data.filter((obj) => obj['Type of moto'] === value.toLowerCase());
+        this.filtered = this.data.filter((obj) => obj['Type of moto'] === value.toLowerCase());
         if (this.sorted) {
             this.data = this.sorted;
         }
-        return filtered;
+        return this.filtered;
     };
 }
