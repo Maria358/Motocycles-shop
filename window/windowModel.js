@@ -6,8 +6,9 @@ export default class WindowModel extends MotocycleModel {
         this.data;
     }
 
-    getCertainMoto(model) {
-        const motoData = this.data.filter(moto => moto.Model === model.split(' ')[1]);
+    getCertainMoto(certainMoto) {
+        const model = certainMoto.split(' ').slice(1).join(' ');
+        const motoData = this.data.filter(moto => moto.Model === model);
         return motoData;
     }
 }

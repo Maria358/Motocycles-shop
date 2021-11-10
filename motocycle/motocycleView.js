@@ -18,6 +18,7 @@ export default class MotocycleView extends View {
 
         document.querySelectorAll('.open').forEach(btn => btn.addEventListener('click', (event) => {
             const moto = event.path[1].querySelector('.card-title').textContent;
+            console.log('moto', moto)
             this.onOpen(moto);
         }))
     }
