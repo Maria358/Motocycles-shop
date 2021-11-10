@@ -3,6 +3,7 @@ import Model from './../common/model.js';
 export default class MotocycleModel extends Model {
     constructor() {
         super();
+        //this.data;
         this.sheetData();
     }
 
@@ -12,13 +13,13 @@ export default class MotocycleModel extends Model {
     }
 
     sort = (option) => {
-        const sorted = this.data.sort((a, b) => {
+        this.sorted = this.data.sort((a, b) => {
             if (a[option] !== b[option]) {
                 return a[option] - b[option];
             };
         });
-        this.data = sorted;
-        return sorted;
+        this.data = this.sorted;
+        return this.sorted;
     }
 
     search = (input) => {
@@ -30,7 +31,9 @@ export default class MotocycleModel extends Model {
 
     filterBy = (value) => {
         const filtered = this.data.filter((obj) => obj['Type of moto'] === value.toLowerCase());
-        this.data = filtered;
+        if (this.sorted) {
+            this.data = this.sorted;
+        }
         return filtered;
     };
 }
