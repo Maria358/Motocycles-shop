@@ -5,11 +5,13 @@ export default class MotocycleView extends View {
     dom = {
         cartBox: document.querySelector('.cart-box'),
         sortBy: document.querySelectorAll('.sortby'),
-        sortVal: document.querySelector('.sortVal')
+        sortVal: document.querySelector('.sortVal'),
+        openBtns: document.querySelectorAll('.open')
     };
 
-    constructor(onSelectSort) {
+    constructor(onSelectSort, onOpen) {
         super();
+        this.onOpen = onOpen;
         this.giveAction(this.dom.sortBy, this.dom.sortVal, onSelectSort);
     };
 
@@ -33,5 +35,9 @@ export default class MotocycleView extends View {
     render(data) {
         const listHTML = data.map((el) => cardRender(el));
         this.insertHTML(listHTML, this.dom.cartBox);
+        document.querySelectorAll('.open').forEach(btn => btn.addEventListener('click', (event) => {
+            const moto = event.path[1].querySelector('.card-title').textContent;
+            this.onOpen(moto);
+        }))
     }
 }

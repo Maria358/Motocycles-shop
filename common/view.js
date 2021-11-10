@@ -3,4 +3,5 @@ export default class View {
         selector.innerHTML = '';
         list.forEach((element) => selector.insertAdjacentHTML('beforeend', element));
     };
+
 }

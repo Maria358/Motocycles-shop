@@ -24,5 +24,6 @@ export default class Observer {
     static events = {
         onSearchByName: 'SEARCH BY NAME',
         onCategoryFilter: 'PRODUCT TYPE',
+        onOpen: 'OPEN MOTO DATA'
     }
 }
