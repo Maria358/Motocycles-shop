@@ -2,7 +2,7 @@ import WindowView from './windowView.js';
 import Observer from './../common/observer.js';
 import WindowModel from './windowModel.js';
 
-export default class windowController {
+export default class WindowController {
     constructor() {
         this.view = new WindowView(this.onOpen);
         this.model = new WindowModel();
