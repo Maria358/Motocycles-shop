@@ -11,7 +11,7 @@ export default class MotocycleModel extends Model {
         return this.data;
     }
 
-    sort = async (option) => {
+    sort = (option) => {
         const sorted = this.data.sort((a, b) => {
             if (a[option] !== b[option]) {
                 return a[option] - b[option];
