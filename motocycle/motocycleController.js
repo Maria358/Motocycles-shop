@@ -12,22 +12,24 @@ export default class MotocycleController {
     }
 
     init = async () => {
-        this.view.render(await this.model.getData());
+        this.view.paginationRender(await this.model.getData());
     };
+
 
     onSelectSort = (sortVal) => {
         const sorted = this.model.sort(sortVal);
         this.view.render(sorted);
+        this.view.paginationRender(sorted);
     };
 
     onInput = (input) => {
         const filtered = this.model.search(input);
-        this.view.render(filtered);
+        this.view.paginationRender(filtered);
     };
 
     onfilterBy = (value) => {
         const filtered = this.model.filterBy(value);
-        this.view.render(filtered);
+        this.view.paginationRender(filtered);
     }
 
     onOpen = (moto) => {
