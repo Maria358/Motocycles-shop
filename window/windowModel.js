@@ -1,9 +1,9 @@
-import Model from "../common/model.js";
+import MotocycleModel from "../motocycle/motocycleModel.js";
 
-export default class WindowModel extends Model {
+export default class WindowModel extends MotocycleModel {
     constructor() {
         super();
-        this.data = this.sheetData();
+        this.data;
     }
 
     getCertainMoto(model) {

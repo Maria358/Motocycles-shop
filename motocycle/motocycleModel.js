@@ -17,6 +17,7 @@ export default class MotocycleModel extends Model {
                 return a[option] - b[option];
             };
         });
+        this.data = sorted;
         return sorted;
     }
 
@@ -29,6 +30,7 @@ export default class MotocycleModel extends Model {
 
     filterBy = (value) => {
         const filtered = this.data.filter((obj) => obj['Type of moto'] === value.toLowerCase());
+        this.data = filtered;
         return filtered;
     };
 }
