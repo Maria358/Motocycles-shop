@@ -3,14 +3,21 @@ import motoRender from './motoRender.js';
 
 export default class WindowView extends View {
   dom = {
-    modal: document.querySelector('.modal')
+    modal: document.querySelector('.modal'),
+    addBtn: document.querySelector('.addToBskt')
   };
 
   constructor() {
     super();
+
   }
 
   dltModalContainer() {
+    document.querySelector('.addToBskt').addEventListener('click', () => {
+      this.dom.modal.style.display = 'none';
+      console.log('add to basket')
+    });
+
     document.querySelector('.close').addEventListener('click', () => {
       document.querySelector('.modal-content').remove();
       this.dom.modal.style.display = 'none';
