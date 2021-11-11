@@ -13,3 +13,4 @@ const sort = new SortController();
 const basket = new BasketController();
 
 motocycle.init();
+basket.init();
