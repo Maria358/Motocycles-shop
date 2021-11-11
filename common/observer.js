@@ -27,6 +27,7 @@ export default class Observer {
         onOpen: 'OPEN MOTO DATA',
         onSort: 'SORT DATA BY',
         onAddToBskt: 'ADD MOTO TO BASKET',
-        getAddedMoto: 'GET ADDED MOTO'
+        getAddedMoto: 'GET ADDED MOTO',
+        sendMsgToTG: 'SEND MESSAGE TO TELEGRAM',
     }
 }

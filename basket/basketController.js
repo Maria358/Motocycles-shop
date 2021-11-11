@@ -4,7 +4,7 @@ import BasketModel from './basketModel.js';
 
 export default class BasketController {
     constructor() {
-        this.view = new BasketView(this.onBasket);
+        this.view = new BasketView(this.onBasket, this.onAddOrder);
         this.model = new BasketModel();
         Observer.subscribe(Observer.events.onAddToBskt, this.onAddToBasket)
     }
@@ -19,6 +19,13 @@ export default class BasketController {
         } else {
             alert('You haven\'t added something to your basket yet!');
         }
+    }
 
+    onAddOrder = (data) => {
+        this.onSendMSG(data)
+    }
+
+    onSendMSG = (msg) => {
+        Observer.notify(Observer.events.sendMsgToTG, msg);
     }
 }
