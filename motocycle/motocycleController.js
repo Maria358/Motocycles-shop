@@ -27,8 +27,12 @@ export default class MotocycleController {
     };
 
     onfilterBy = async (value) => {
-        const filtered = await this.model.filterBy(value);
-        this.view.paginationRender(filtered);
+        if(value == 'All Category'){
+            this.view.paginationRender(await this.model.getData());
+        } else {
+            const filtered = await this.model.filterBy(value);
+            this.view.paginationRender(filtered);
+        }
     }
 
     onOpen = (moto) => {

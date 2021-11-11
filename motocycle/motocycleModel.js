@@ -34,7 +34,7 @@ export default class MotocycleModel extends Model {
             this.data = await this.getData();
             this.data = this.sort(this.option);
         }
-        this.filtered = this.data.filter((obj) => obj['Type of moto'] === value.toLowerCase());
+        this.filtered = this.data.filter((obj) => obj['Type of moto'] === value);
         this.data = this.filtered;
         return this.filtered;
     };

@@ -11,7 +11,7 @@ export default function cardRender(data) {
             </div>
             <div class="card-body">
               <h5 class="card-title">${data.Brand} ${data.Model}</h5>
-              <p class="type">${data['Type of moto']}</p>
+              <p class="type-card">Type: ${data['Type of moto']} | Year of issue: ${data['Year of issue']}</p>
               <p class="card-text">${shortDescription(data.Description)}</p>
               <a href="#" class="btn btn-primary open">Open</a>
             </div>
