@@ -3,7 +3,9 @@ import View from './../common/view.js';
 export default class BasketView extends View {
     dom = {
         addBtn: document.querySelector('.basket'),
-        modal: document.querySelector('.modal-basket')
+        modal: document.querySelector('.modal-basket'),
+        counter: document.getElementById('counterItem'),
+        counterContainer: document.querySelector('.counter')
     }
 
     constructor(onBasket) {
@@ -14,6 +16,13 @@ export default class BasketView extends View {
     removeModal = () => {
         document.querySelector('.modal-content').remove();
         this.dom.modal.style.display = 'none';
+    }
+
+    countItem = (count) => {
+        if (count !== 0) {
+            this.dom.counterContainer.style.display = 'block';
+            this.dom.counter.textContent = count;
+        }
     }
 
     render(data) {

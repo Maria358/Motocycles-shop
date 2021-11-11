@@ -9,14 +9,20 @@ export default class BasketController {
         Observer.subscribe(Observer.events.onAddToBskt, this.onAddToBasket)
     }
 
+    init = () => {
+        this.counter = this.model.getItemsFromBasket().length;
+        this.view.countItem(this.counter);
+    }
+
     onAddToBasket = (choosenMoto) => {
-        this.data = this.model.addToBasket(choosenMoto); // добавили выбранный мотоцикл в корзину
+        this.view.countItem(++this.counter);
+        this.data = this.model.addToBasket(choosenMoto);
     }
 
     onBasket = () => {
         this.data = this.model.getItemsFromBasket();
         if (this.data.length !== 0) {
-            this.view.render(this.data); // По клику на корзину - рендерим все выбранные мото
+            this.view.render(this.data);
         } else {
             alert('You haven\'t added something to your basket yet!');
         }
