@@ -10,7 +10,8 @@ export default class BasketModel extends MotocycleModel {
     addToBasket = (id) => {
         const motoData = this.searchByID(id);
         if (!this.checkTheMoto(id)) {
-            this.motos.push(motoData[0]);
+            localStorage.setItem(`${id}`, JSON.stringify(motoData[0]));
+            this.motos.push(JSON.parse(localStorage.getItem(`${id}`)));
         }
         return this.motos;
     }
@@ -18,5 +19,12 @@ export default class BasketModel extends MotocycleModel {
     checkTheMoto = (id) => {
         const isTrue = this.motos.some(moto => moto.ID === id);
         return isTrue;
+    }
+
+    getItemsFromBasket = () => {
+        return Object.keys(localStorage)
+            .reduce((obj, k) => {
+                return [...obj, JSON.parse(localStorage.getItem(k))]
+            }, []);
     }
 }
