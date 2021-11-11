@@ -18,7 +18,6 @@ export default class MotocycleController {
 
     onSelectSort = (sortVal) => {
         const sorted = this.model.sort(sortVal);
-        this.view.render(sorted);
         this.view.paginationRender(sorted);
     };
 
@@ -27,8 +26,8 @@ export default class MotocycleController {
         this.view.paginationRender(filtered);
     };
 
-    onfilterBy = (value) => {
-        const filtered = this.model.filterBy(value);
+    onfilterBy = async (value) => {
+        const filtered = await this.model.filterBy(value);
         this.view.paginationRender(filtered);
     }
 

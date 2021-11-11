@@ -5,8 +5,11 @@ export default class CategoryView {
 
     constructor(onClickByCategory) {
         this.types = document.querySelectorAll('.type');
-        this.types.forEach(el => el.addEventListener('click', onClickByCategory));
+        this.types.forEach(el => el.addEventListener('click', (event) => {
+            this.dom.filterVal.textContent = event.target.textContent;
+            onClickByCategory();
+        }));
     }
 
-
+    getNeedVal = () => this.dom.filterVal.textContent;
 }

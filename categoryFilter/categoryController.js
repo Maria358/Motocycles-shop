@@ -6,8 +6,8 @@ export default class CategoryController {
         this.view = new CategoryView(this.onClickByCategory);
     }
 
-    onClickByCategory = (event) => {
-        const value = event.target.textContent;
+    onClickByCategory = () => {
+        const value = this.view.getNeedVal();
         Observer.notify(Observer.events.onCategoryFilter, value);
     };
 }

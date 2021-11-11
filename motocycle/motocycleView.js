@@ -46,6 +46,6 @@ export default class MotocycleView extends View {
     };
 
     paginationRender(data) {
-        this.pagination(data, this.dom.paginationItems);
+        this.pagination(data);
     }
 }
