@@ -1,4 +1,5 @@
 import View from './../common/view.js';
+import { testMSG } from '../common/textMessage.js';
 
 export default class BasketView extends View {
     dom = {
@@ -8,15 +9,17 @@ export default class BasketView extends View {
         counterContainer: document.querySelector('.counter')
     }
 
-    constructor(onBasket) {
+    constructor(onBasket, onAddOrder) {
         super();
+        this.testMSG = testMSG;
+        this.onAddOrder = onAddOrder;
         this.dom.addBtn.addEventListener('click', onBasket);
     }
 
     removeModal = () => {
         document.querySelector('.modal-content').remove();
         this.dom.modal.style.display = 'none';
-    }
+    };
 
     countItem = (count) => {
         if (count !== 0) {
@@ -33,6 +36,11 @@ export default class BasketView extends View {
         document.querySelector('.close').addEventListener('click', () => {
             this.removeModal();
         });
+
+
+        //!! запуск бота
+        const order = document.querySelector('.order');
+        this.doMsg(data, order);
     }
 
     basketItemRender = (data) => {
@@ -45,11 +53,20 @@ export default class BasketView extends View {
       </div>   
       <div class="modal-footer">          
       <div class="window-btn-container">
-      <button type="button" id=${data.ID} class="btn btn-primary">Order</button>
+      <button type="button" id=${data.ID} class="order btn btn-primary">Order</button>
       <button type="button" id=${data.ID} class="btn btn-primary">Delete</button>
       </div>
       </div>
-    </div>`
-    }
+    </div>`;
+    };
 
+
+    //!! метод для бота (нужно будет добавить его на кнопку формы)
+    doMsg = (data, selector) => {
+        selector.addEventListener('click', () => {
+            const textMessage = this.testMSG(data[0].Brand, data[0].Model);
+            this.removeModal();
+            this.onAddOrder(textMessage);
+        });
+    };
 }
