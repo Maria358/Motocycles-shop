@@ -34,4 +34,5 @@ export default class MotocycleController {
     onOpen = (moto) => {
         Observer.notify(Observer.events.onOpen, moto)
     }
+
 }
