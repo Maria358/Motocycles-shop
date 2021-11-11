@@ -15,3 +15,4 @@ const basket = new BasketController();
 const messenger = new MessengeкController();
 
 motocycle.init();
+basket.init();

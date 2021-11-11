@@ -335,3 +335,15 @@ body {
 .basketItem-container {
     display: "none";
 }
+.counter {
+    display: none;
+    color: white;
+    position: relative;
+    left: 80px;
+    top: -45px;
+    background-color: darkred;
+    width: 20px;
+    height: 30px;
+    border-radius: 20%;
+    text-align: center;
+}
