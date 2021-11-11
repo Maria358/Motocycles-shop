@@ -11,15 +11,9 @@ export default class SortView {
     giveAction(collection, element, handler) {
         collection.forEach(option => option.addEventListener('click', event => {
             element.textContent = event.target.textContent;
-            this.hideEl();
             handler();
         }));
     }
-
-    hideEl() {
-        const cards = document.querySelectorAll('.card');
-        cards.forEach(card => card.style.display = 'none');
-    };
 
     getNeedVal = () => ({
         sortVal: this.dom.sortVal.textContent

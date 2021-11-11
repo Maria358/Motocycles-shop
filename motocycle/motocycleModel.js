@@ -3,7 +3,6 @@ import Model from './../common/model.js';
 export default class MotocycleModel extends Model {
     constructor() {
         super();
-        //this.data;
         this.sheetData();
     }
 
@@ -13,12 +12,10 @@ export default class MotocycleModel extends Model {
     }
 
     sort = (option) => {
-        if (this.filtered) {
-            this.data = this.filtered;
-        }
+        this.option = option;
         this.sorted = this.data.sort((a, b) => {
-            if (a[option] !== b[option]) {
-                return a[option] - b[option];
+            if (a[this.option] !== b[this.option]) {
+                return a[this.option] - b[this.option];
             };
         });
         this.data = this.sorted;
@@ -32,11 +29,13 @@ export default class MotocycleModel extends Model {
         return filtered;
     }
 
-    filterBy = (value) => {
-        this.filtered = this.data.filter((obj) => obj['Type of moto'] === value.toLowerCase());
-        if (this.sorted) {
-            this.data = this.sorted;
+    filterBy = async (value) => {
+        if (this.filtered) {
+            this.data = await this.getData();
+            this.data = this.sort(this.option);
         }
+        this.filtered = this.data.filter((obj) => obj['Type of moto'] === value.toLowerCase());
+        this.data = this.filtered;
         return this.filtered;
     };
 }
