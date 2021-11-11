@@ -1,5 +1,6 @@
 import MotocycleModel from "../motocycle/motocycleModel.js";
 
+
 export default class WindowModel extends MotocycleModel {
     constructor() {
         super();
@@ -11,4 +12,5 @@ export default class WindowModel extends MotocycleModel {
         const motoData = this.data.filter(moto => moto.Model === model);
         return motoData;
     }
+
 }

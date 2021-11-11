@@ -25,6 +25,8 @@ export default class Observer {
         onSearchByName: 'SEARCH BY NAME',
         onCategoryFilter: 'PRODUCT TYPE',
         onOpen: 'OPEN MOTO DATA',
-        onSort: 'SORT DATA BY'
+        onSort: 'SORT DATA BY',
+        onAddToBskt: 'ADD MOTO TO BASKET',
+        getAddedMoto: 'GET ADDED MOTO'
     }
 }

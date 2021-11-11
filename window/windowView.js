@@ -7,21 +7,25 @@ export default class WindowView extends View {
     addBtn: document.querySelector('.addToBskt')
   };
 
-  constructor() {
+  constructor(onAdd) {
     super();
-
+    this.onAdd = onAdd;
   }
 
   dltModalContainer() {
-    document.querySelector('.addToBskt').addEventListener('click', () => {
-      this.dom.modal.style.display = 'none';
-      console.log('add to basket')
+    document.querySelector('.addToBskt').addEventListener('click', (event) => {
+      this.removeModal();
+      this.onAdd(event.target.getAttribute('id'));
     });
 
     document.querySelector('.close').addEventListener('click', () => {
-      document.querySelector('.modal-content').remove();
-      this.dom.modal.style.display = 'none';
+      this.removeModal();
     });
+  }
+
+  removeModal = () => {
+    document.querySelector('.modal-content').remove();
+    this.dom.modal.style.display = 'none';
   }
 
   render(data) {
