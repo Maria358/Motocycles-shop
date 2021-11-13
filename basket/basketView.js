@@ -34,24 +34,29 @@ export default class BasketView extends View {
             this.dom.counter.textContent = count;
         } else {
             this.dom.counterContainer.style.display = 'none';
-            this.dom.modal.style.display = 'none';
+            this.dom.modalContainer.style.display = 'none';
         }
     };
 
     render(data) {
-        this.dom.modalContainer.style.display = 'block';
-        const basketItem = data.map((item) => this.basketItemRender(item));
-        const del = document.querySelectorAll('.delete');
+        if (!data.length) return;
 
-        for (const item of del) {
-            item.addEventListener('click', (e) => {
-                this.onRemainingProducts(e.target.id);
-            });
-        }
+        let IDs = [];
+        this.dom.modalContainer.style.display = 'block';
+
+        const basketItem = data.map((item) => {
+            IDs.push(item.ID)
+            return this.basketItemRender(item)
+        });
 
         this.insertHTML(basketItem, this.dom.modalBody);
 
-        //!! запуск бота
+        for (let id of IDs) {
+            document.getElementById(`${id}d`).addEventListener('click', () => {
+                this.onRemainingProducts(id);
+            })
+        }
+
         const order = document.querySelector('.order');
         this.doMsg(data, order);
     }
@@ -66,12 +71,11 @@ export default class BasketView extends View {
       </div>           
       <div class="window-btn-container">
          <button type="button" id=${data.ID} class="order btn btn-primary">Order</button>
-         <button type="button" id=${data.ID} class="delete btn btn-primary">Delete</button>
+         <button type="button" id="${data.ID}d" class="delete btn btn-primary">Delete</button>
       </div>
       </div>`;
     };
 
-    //!! метод для бота (нужно будет добавить его на кнопку формы)
     doMsg = (data, selector) => {
         selector.addEventListener('click', () => {
             const textMessage = this.testMSG(data[0].Brand, data[0].Model);
@@ -82,6 +86,6 @@ export default class BasketView extends View {
 
     delProduct = (productList) => {
         const basketItem = productList.map((item) => this.basketItemRender(item));
-        this.insertHTML(basketItem, this.dom.modal);
+        this.insertHTML(basketItem, this.dom.modalBody);
     };
 }

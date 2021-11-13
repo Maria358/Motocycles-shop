@@ -28,14 +28,14 @@ export default class BasketController {
         }
     };
 
-    onRemainingProducts = (value) => {
-        const listProducts = this.model.remainingProducts(this.model.getItemsFromBasket(), value);
+    onRemainingProducts = (id) => {
+        const listProducts = this.model.remainingProducts(this.model.getItemsFromBasket(), id);
         this.view.delProduct(listProducts)
         this.counter = this.model.getItemsFromBasket().length;
         this.view.countItem(this.counter);
+        this.view.render(listProducts);
     };
 
-    // bot
     onAddOrder = (data) => {
         this.onSendMSG(data);
     };
