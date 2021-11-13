@@ -11,10 +11,12 @@ export default class BasketView extends View {
         closeBasketBtn: document.querySelector('.closeBsktModal')
     }
 
-    constructor(onBasket, onAddOrder) {
+
+    constructor(onBasket, onAddOrder, onRemainingProducts) {
         super();
         this.testMSG = testMSG;
         this.onAddOrder = onAddOrder;
+        this.onRemainingProducts = onRemainingProducts;
         this.dom.addBtn.addEventListener('click', onBasket);
         this.dom.closeBasketBtn.addEventListener('click', () => {
             this.removeModal();
@@ -30,13 +32,25 @@ export default class BasketView extends View {
         if (count !== 0) {
             this.dom.counterContainer.style.display = 'block';
             this.dom.counter.textContent = count;
+        } else {
+            this.dom.counterContainer.style.display = 'none';
+            this.dom.modal.style.display = 'none';
         }
-    }
+    };
 
     render(data) {
         this.dom.modalContainer.style.display = 'block';
         const basketItem = data.map((item) => this.basketItemRender(item));
+        const del = document.querySelectorAll('.delete');
+
+        for (const item of del) {
+            item.addEventListener('click', (e) => {
+                this.onRemainingProducts(e.target.id);
+            });
+        }
+
         this.insertHTML(basketItem, this.dom.modalBody);
+
         //!! запуск бота
         const order = document.querySelector('.order');
         this.doMsg(data, order);
@@ -52,7 +66,7 @@ export default class BasketView extends View {
       </div>           
       <div class="window-btn-container">
          <button type="button" id=${data.ID} class="order btn btn-primary">Order</button>
-         <button type="button" id=${data.ID} class="dltItem btn btn-primary" onclick=" console.log('delete')">Delete</button>
+         <button type="button" id=${data.ID} class="delete btn btn-primary">Delete</button>
       </div>
       </div>`;
     };
@@ -64,5 +78,10 @@ export default class BasketView extends View {
             this.removeModal();
             this.onAddOrder(textMessage);
         });
+    };
+
+    delProduct = (productList) => {
+        const basketItem = productList.map((item) => this.basketItemRender(item));
+        this.insertHTML(basketItem, this.dom.modal);
     };
 }

@@ -14,17 +14,22 @@ export default class BasketModel extends MotocycleModel {
             this.motos.push(JSON.parse(localStorage.getItem(`${id}`)));
         }
         return this.motos;
-    }
+    };
 
     checkTheMoto = (id) => {
-        const isTrue = this.motos.some(moto => moto.ID === id);
+        const isTrue = this.motos.some((moto) => moto.ID === id);
         return isTrue;
-    }
+    };
 
     getItemsFromBasket = () => {
-        return Object.keys(localStorage)
-            .reduce((obj, k) => {
-                return [...obj, JSON.parse(localStorage.getItem(k))]
-            }, []);
-    }
+        return Object.keys(localStorage).reduce((obj, k) => {
+            return [...obj, JSON.parse(localStorage.getItem(k))];
+        }, []);
+    };
+
+    remainingProducts = (data, value) => {
+        localStorage.removeItem(value);
+        const listProd = data.filter((el) => el.ID !== value);
+        return listProd;
+    };
 }
