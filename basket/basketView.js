@@ -7,12 +7,13 @@ export default class BasketView extends View {
         modal: document.querySelector('.modal-basket'),
         counter: document.getElementById('counterItem'),
         counterContainer: document.querySelector('.counter')
-    }
+    };
 
-    constructor(onBasket, onAddOrder) {
+    constructor(onBasket, onAddOrder, onRemainingProducts) {
         super();
         this.testMSG = testMSG;
         this.onAddOrder = onAddOrder;
+        this.onRemainingProducts = onRemainingProducts;
         this.dom.addBtn.addEventListener('click', onBasket);
     }
 
@@ -25,18 +26,24 @@ export default class BasketView extends View {
         if (count !== 0) {
             this.dom.counterContainer.style.display = 'block';
             this.dom.counter.textContent = count;
+        } else {
+            this.removeModal()
         }
-    }
+    };
 
     render(data) {
         this.dom.modal.style.display = 'block';
         const basketItem = data.map((item) => this.basketItemRender(item));
+
         this.insertHTML(basketItem, this.dom.modal);
 
         document.querySelector('.close').addEventListener('click', () => {
             this.removeModal();
         });
 
+        document.querySelector('.delete').addEventListener('click', (e) => {
+            this.onRemainingProducts(e.target.id)
+        })
 
         //!! запуск бота
         const order = document.querySelector('.order');
@@ -54,12 +61,11 @@ export default class BasketView extends View {
       <div class="modal-footer">          
       <div class="window-btn-container">
       <button type="button" id=${data.ID} class="order btn btn-primary">Order</button>
-      <button type="button" id=${data.ID} class="btn btn-primary">Delete</button>
+      <button type="button" id=${data.ID} class="delete btn btn-primary">Delete</button>
       </div>
       </div>
     </div>`;
     };
-
 
     //!! метод для бота (нужно будет добавить его на кнопку формы)
     doMsg = (data, selector) => {
@@ -68,5 +74,10 @@ export default class BasketView extends View {
             this.removeModal();
             this.onAddOrder(textMessage);
         });
+    };
+
+    delProduct = (productList) => {
+        const basketItem = productList.map((item) => this.basketItemRender(item));
+        this.insertHTML(basketItem, this.dom.modal);
     };
 }
