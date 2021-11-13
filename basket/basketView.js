@@ -2,30 +2,34 @@ import View from './../common/view.js';
 import { testMSG } from '../common/textMessage.js';
 
 export default class BasketView extends View {
-    dom = {
-        addBtn: document.querySelector('.basket'),
-        modalBody: document.querySelector('.modal-body2'),
-        modalContainer: document.querySelector('.modal-basket'),
-        counter: document.getElementById('counterItem'),
-        counterContainer: document.querySelector('.counter'),
-        closeBasketBtn: document.querySelector('.closeBsktModal')
-    }
 
+    domStr = [
+        { name: 'addBtn', selector: '.basket' },
+        { name: 'modalBody', selector: '.modal-body2' },
+        { name: 'modalContainer', selector: '.modal-basket' },
+        { name: 'counterContainer', selector: '.counter' },
+        { name: 'closeBasketBtn', selector: '.closeBsktModal' },
+        { name: 'modalContent', selector: '.modal-content2' },
+        { name: 'counter', selector: '#counterItem' }
+    ]
 
     constructor(onBasket, onAddOrder, onRemainingProducts) {
         super();
+        this.linkDOMElements();
+
         this.testMSG = testMSG;
         this.onAddOrder = onAddOrder;
         this.onRemainingProducts = onRemainingProducts;
+
         this.dom.addBtn.addEventListener('click', onBasket);
         this.dom.closeBasketBtn.addEventListener('click', () => {
-            this.removeModal();
+            this.changeCondModal('none');
         });
     }
 
-    removeModal = () => {
-        document.querySelector('.modal-content2').remove();
-        this.dom.modalContainer.style.display = 'none';
+    changeCondModal = (condition) => {
+        this.dom.modalContent.style.display = `${condition}`;
+        this.dom.modalContainer.style.display = `${condition}`;
     };
 
     countItem = (count) => {
@@ -39,41 +43,35 @@ export default class BasketView extends View {
     };
 
     render(data) {
-        if (!data.length) return;
+        if (data.length == 0) return;
 
-        let IDs = [];
-        this.dom.modalContainer.style.display = 'block';
+        this.changeCondModal('block');
 
-        const basketItem = data.map((item) => {
-            IDs.push(item.ID)
-            return this.basketItemRender(item)
-        });
+        this.baseRender(data);
 
-        this.insertHTML(basketItem, this.dom.modalBody);
-
-        for (let id of IDs) {
-            document.getElementById(`${id}d`).addEventListener('click', () => {
-                this.onRemainingProducts(id);
-            })
-        }
+        document.querySelectorAll(`.delete`).forEach(btn => btn.addEventListener('click', (event) => {
+            const id = event.target.id.slice(0, event.target.id.length - 1);
+            this.onRemainingProducts(id);
+        }));
 
         const order = document.querySelector('.order');
         this.doMsg(data, order);
     }
 
     basketItemRender = (data) => {
-        return `
-        <div>
-        <div>
-           <h5>${data.Brand} ${data.Model}</h5> 
-           <p>$${data.Price}</p>
-           <img src=${data.Image} alt="..." width="100" height="50">    
-      </div>           
-      <div class="window-btn-container">
-         <button type="button" id=${data.ID} class="order btn btn-primary">Order</button>
-         <button type="button" id="${data.ID}d" class="delete btn btn-primary">Delete</button>
-      </div>
-      </div>`;
+        return `<div class="cart-item">
+                  <div class="item-details">
+                    <img src=${data.Image} alt="..." class="item-image">    
+                       <div class="cart-item-data">
+                          <h4 class="cart-item-name">${data.Brand} ${data.Model}</h4>
+                          <p class="cart-item-price">Price: $${data.Price}</p>
+                       </div>
+                </div>           
+                <div class="window-btn-container">
+                       <button type="button" id=${data.ID} class="order btn btn-primary">Order</button>
+                       <button type="button" id="${data.ID}d" class="delete btn btn-danger">Delete</button>
+                </div>
+            </div>`;
     };
 
     doMsg = (data, selector) => {
@@ -84,8 +82,8 @@ export default class BasketView extends View {
         });
     };
 
-    delProduct = (productList) => {
-        const basketItem = productList.map((item) => this.basketItemRender(item));
+    baseRender = (data) => {
+        const basketItem = data.map((item) => this.basketItemRender(item));
         this.insertHTML(basketItem, this.dom.modalBody);
-    };
+    }
 }
