@@ -27,7 +27,8 @@ export default class BasketView extends View {
             this.dom.counterContainer.style.display = 'block';
             this.dom.counter.textContent = count;
         } else {
-            this.removeModal()
+            this.dom.counterContainer.style.display = 'none';
+            this.dom.modal.style.display = 'none';
         }
     };
 
@@ -41,9 +42,13 @@ export default class BasketView extends View {
             this.removeModal();
         });
 
-        document.querySelector('.delete').addEventListener('click', (e) => {
-            this.onRemainingProducts(e.target.id)
-        })
+        const del = document.querySelectorAll('.delete');
+
+        for (const item of del) {
+            item.addEventListener('click', (e) => {
+                this.onRemainingProducts(e.target.id);
+            });
+        }
 
         //!! запуск бота
         const order = document.querySelector('.order');
@@ -61,7 +66,7 @@ export default class BasketView extends View {
       <div class="modal-footer">          
       <div class="window-btn-container">
       <button type="button" id=${data.ID} class="order btn btn-primary">Order</button>
-      <button type="button" id=${data.ID} class="delete btn btn-primary">Delete</button>
+      <button type="button" onclick='console.log('delete')' id=${data.ID} class="delete btn btn-primary">Delete</button>
       </div>
       </div>
     </div>`;
