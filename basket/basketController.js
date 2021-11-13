@@ -29,8 +29,11 @@ export default class BasketController {
     };
 
     onRemainingProducts = (id) => {
+        console.log('s')
         const listProducts = this.model.remainingProducts(this.model.getItemsFromBasket(), id);
-        this.view.delProduct(listProducts)
+        console.log('id', id)
+        console.log('listProducts', listProducts)
+        this.view.baseRender(listProducts)
         this.counter = this.model.getItemsFromBasket().length;
         this.view.countItem(this.counter);
         this.view.render(listProducts);
