@@ -14,13 +14,14 @@ export default class BasketView extends View {
         { name: 'username', selector: '.username' }
     ];
 
-    constructor(onBasket, onAddOrder, onRemainingProducts, sortInBasket) {
+    constructor(onBasket, onAddOrder, onRemainingProducts, receiveAmout) {
         super();
         this.linkDOMElements();
 
         this.onAddOrder = onAddOrder;
         this.onRemainingProducts = onRemainingProducts;
         this.sortInBasket = sortInBasket;
+        this.receiveAmout = receiveAmout;
         this.dom.addBtn.addEventListener('click', onBasket);
         this.dom.closeBasketBtn.addEventListener('click', () => {
             this.changeCondModal('none');
@@ -68,6 +69,8 @@ export default class BasketView extends View {
                 });
             })
         );
+
+        document.getElementById('total-amount').textContent = `${this.receiveAmout()}$`;
     }
 
     basketItemRender = (data) => {

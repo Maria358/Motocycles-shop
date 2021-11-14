@@ -9,7 +9,7 @@ export default class BasketModel extends MotocycleModel {
         this.localOrders = [];
         this.ordersId = [];
         this.searchByID;
-    }
+    };
 
     init = () => {
         this.localBasket = JSON.parse(localStorage.getItem(this.localBasketKey));
@@ -60,4 +60,13 @@ export default class BasketModel extends MotocycleModel {
         const needModel = data.filter((el) => el.ID === id);
         return needModel
     }
+
+    countTotalAmount = () => {
+        const amount = this.localBasket.map(item => item.Price);
+        this.result = amount.reduce((previousValue, currentValue) => {
+            return +previousValue + +currentValue;
+        }, 0);
+
+        return this.result;
+    };
 }

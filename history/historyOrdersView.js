@@ -6,7 +6,7 @@ export default class HistoryOrdersView extends View {
         historyBody: document.getElementById('history-body'),
         historyModal: document.querySelector('.history-modal-container'),
         modalHistory: document.querySelector('.modal-history'),
-        close: document.getElementById('.close-history')
+        close: document.getElementById('close-history')
     }
 
     constructor(onHistory) {

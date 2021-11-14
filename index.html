@@ -79,6 +79,18 @@
   <div class="wrapper">
     <div class="main">
       <div class="container">
+          <form class="form">
+                <div class="mb-3">
+                  <div class="mb-3">
+                    <label for="exampleInputName" class="form-label">Name</label>
+                    <input type="text" class="form-control username" placeholder="Your name" id="exampleInputName">
+                  </div>
+                  <label for="exampleInputEmail1" class="form-label">Email address</label>
+                  <input type="email" class="form-control useremail" placeholder="Email" id="exampleInputEmail1" aria-describedby="emailHelp">
+                  <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                </div>
+                <button type="submit" class="btn btn-primary form-order-btn">Submit</button>
+              </form>
         <div class="wrapper-content">
           <div class="cart-box"></div>
           <div id="myModal" class="modal"></div>
@@ -94,19 +106,9 @@
               <div class="modal-body2">
                 <!-- content -->
               </div>
-              <form class="form">
-                <div class="mb-3">
-                  <div class="mb-3">
-                    <label for="exampleInputName" class="form-label">Name</label>
-                    <input type="text" class="form-control username" placeholder="Your name" id="exampleInputName">
-                  </div>
-                  <label for="exampleInputEmail1" class="form-label">Email address</label>
-                  <input type="email" class="form-control useremail" placeholder="Email" id="exampleInputEmail1" aria-describedby="emailHelp">
-                  <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-                </div>
-
-                <button type="submit" class="btn btn-primary form-order-btn">Submit</button>
-              </form>
+              <div class="mdl-footer">
+                <h3>Total amount: <span id="total-amount">0</span></h3>
+              </div>
             </div>
           </div>
         </div>
