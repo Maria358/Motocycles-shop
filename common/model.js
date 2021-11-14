@@ -10,4 +10,10 @@ export default class Model {
             console.log(e.message);
         }
     };
+    searchByID = (input) => {
+        const filtered = this.data.filter(obj => {
+            return obj.ID.includes(input);
+        });
+        return filtered;
+    }
 }

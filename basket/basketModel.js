@@ -3,33 +3,58 @@ import MotocycleModel from './../motocycle/motocycleModel.js';
 export default class BasketModel extends MotocycleModel {
     constructor() {
         super();
-        this.motos = [];
+        this.localBasketKey = 'localBasket';
+        this.localOrdersKey = 'localOrders';
+        this.localBasket = [];
+        this.localOrders = [];
+        this.ordersId = [];
         this.searchByID;
     }
 
-    addToBasket = (id) => {
-        const motoData = this.searchByID(id);
-        if (!this.checkTheMoto(id)) {
-            localStorage.setItem(`${id}`, JSON.stringify(motoData[0]));
-            this.motos.push(JSON.parse(localStorage.getItem(`${id}`)));
-        }
-        return this.motos;
-    };
+    init = () => {
+        this.localBasket = JSON.parse(localStorage.getItem(this.localBasketKey));
+    }
 
-    checkTheMoto = (id) => {
-        const isTrue = this.motos.some((moto) => moto.ID === id);
-        return isTrue;
+    addToBasket = (id) => {
+        if (localStorage.getItem(this.localBasketKey)) {
+            this.localBasket = [...JSON.parse(localStorage.getItem(this.localBasketKey))];
+            localStorage.removeItem(this.localBasketKey);
+        }
+        const motoData = this.searchByID(id);
+        this.localBasket.push(motoData[0]);
+        localStorage.setItem(this.localBasketKey, JSON.stringify(this.localBasket));
+
+        return this.localBasket;
     };
 
     getItemsFromBasket = () => {
-        return Object.keys(localStorage).reduce((obj, k) => {
-            return [...obj, JSON.parse(localStorage.getItem(k))];
-        }, []);
+        const items = JSON.parse(localStorage.getItem(this.localBasketKey));
+
+        return items;
     };
 
-    remainingProducts = (data, value) => {
-        localStorage.removeItem(value);
-        const listProd = data.filter((el) => el.ID !== value);
+    remainingProducts = (data, id) => {
+        const basketItems = JSON.parse(localStorage.getItem(this.localBasketKey));
+        this.localBasket = basketItems.filter(item => item.ID !== id);
+        localStorage.removeItem(this.localBasketKey);
+        localStorage.setItem(this.localBasketKey, JSON.stringify(this.localBasket));
+
         return listProd;
     };
+
+    saveOrdersToLocal = (order) => {
+        if (localStorage.getItem(this.localOrdersKey)) {
+            this.localOrders = [...JSON.parse(localStorage.getItem(this.localOrdersKey))];
+            localStorage.removeItem(this.localOrdersKey);
+        }
+        this.localOrders.push(order);
+        localStorage.setItem(this.localOrdersKey, JSON.stringify(this.localOrders));
+    }
+
+    getItemById = (id) => {
+        const moto = this.searchByID(id);
+
+        return moto;
+    };
+
 }

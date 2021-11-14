@@ -1,6 +1,7 @@
 import BasketView from './basketView.js';
 import Observer from './../common/observer.js';
 import BasketModel from './basketModel.js';
+import { testMSG } from '../common/textMessage.js';
 
 export default class BasketController {
     constructor() {
@@ -10,18 +11,22 @@ export default class BasketController {
     }
 
     init = () => {
+        if (this.model.getItemsFromBasket()) {
+            this.counter = this.model.getItemsFromBasket().length;
+            this.view.countItem(this.counter);
+            this.model.init();
+        }
+    };
+
+    onAddToBasket = (choosenMoto) => {
+        this.data = this.model.addToBasket(choosenMoto);
         this.counter = this.model.getItemsFromBasket().length;
         this.view.countItem(this.counter);
     };
 
-    onAddToBasket = (choosenMoto) => {
-        this.view.countItem(++this.counter);
-        this.data = this.model.addToBasket(choosenMoto);
-    };
-
     onBasket = () => {
         this.data = this.model.getItemsFromBasket();
-        if (this.data.length !== 0) {
+        if (this.data && this.data.length !== 0) {
             this.view.render(this.data);
         } else {
             alert("You haven't added something to your basket yet!");
@@ -29,18 +34,18 @@ export default class BasketController {
     };
 
     onRemainingProducts = (id) => {
-        console.log('s')
         const listProducts = this.model.remainingProducts(this.model.getItemsFromBasket(), id);
-        console.log('id', id)
-        console.log('listProducts', listProducts)
-        this.view.baseRender(listProducts)
+        this.view.baseRender(listProducts);
         this.counter = this.model.getItemsFromBasket().length;
         this.view.countItem(this.counter);
         this.view.render(listProducts);
     };
 
-    onAddOrder = (data) => {
-        this.onSendMSG(data);
+    onAddOrder = (id) => {
+        const data = this.model.getItemById(id);
+        const textMessage = testMSG(data[0].Brand, data[0].Model);
+        this.model.saveOrdersToLocal(data[0]);
+        this.onSendMSG(textMessage);
     };
 
     onSendMSG = (msg) => {
