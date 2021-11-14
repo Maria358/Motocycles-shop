@@ -23,6 +23,10 @@ body {
     flex: 0 0 auto;
 }
 
+.container-fluid {
+    justify-content: space-between !important;
+}
+
 body {
     background-color: rgba(128, 128, 128, 0.13);
     font-weight: 300;
@@ -34,15 +38,70 @@ body {
     position: fixed;
     z-index: 100;
     width: 100%;
-    height: 80px;
     font-size: 23px;
 }
 .navbar-brand {
-    margin: 10px 100px 10px 30px;
+    margin: 10px 50px 10px 30px;
     font-size: 30px;
     letter-spacing: 5px;
     color: rgb(44, 44, 194);
 }
+
+.navbar-collapse {
+    background-color: #212529;
+}
+
+@media (max-width: 1250px) {
+    .navbar-nav.me-auto {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 1190px) {
+    .navbar-dark {
+        height: auto;
+    }
+    .navbar-nav .nav-item {
+        font-size: 1rem;
+    }
+
+    .history {
+        margin: 0 !important;
+    }
+}
+
+@media (max-width: 1050px) {
+    .navbar-brand {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 993px) {
+    .search-Form {
+        width: 60% !important;
+    }
+}
+
+@media (max-width: 425px) {
+    .search-Form {
+        width: 100% !important;
+        margin-top: 0.5rem;
+    }
+
+    .wrapper-content {
+        margin-top: 3rem;
+    }
+
+    .navbar-brand {
+        flex-grow: 1;
+        text-align: center;
+    }
+}
+
+.search-input {
+    min-width: 15vw;
+}
+
 .container {
     max-width: 1030px;
     padding: 0 15px;
@@ -55,6 +114,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    margin-top: 1rem;
 }
 .card {
     flex-basis: 30%;
@@ -214,13 +274,11 @@ body {
 .order {
     margin-right: 0.5rem;
 }
-
 .form {
     margin: 0 auto;
     width: 80%;
     display: none;
 }
-
 .delete:hover,
 .order:hover {
     color: white;
@@ -284,9 +342,9 @@ body {
     padding: 2px 16px;
 }
 
-.mdl-footer {
-    padding: 0.5rem 5rem;
-    text-align: right;
+.modal-footer {
+    padding: 2px 16px;
+    color: black;
 }
 .modal-body2 {
     padding: 2rem;
@@ -424,6 +482,32 @@ body {
         margin-right: 0;
         font-weight: 600;
     }
+    .window-photo {
+        margin-left: 0rem;
+        width: 10rem;
+        height: 10rem;
+    }
+    .item-details {
+        width: fit-content;
+    }
+    .item-details .item-image {
+        width: 20rem;
+        height: 5rem;
+    }
+    .cart-item-name {
+        font-size: 1rem;
+    }
+    .cart-item {
+        height: auto;
+        width: auto;
+    }
+    .cart-item-price {
+        font-size: 1rem;
+    }
+    .controls h2,
+    .controls i {
+        font-size: 1rem;
+    }
 }
 .basketItem-container {
     display: "none";
@@ -432,13 +516,14 @@ body {
     display: none;
     color: white;
     position: relative;
-    left: 80px;
+    left: 3.5rem;
     top: -45px;
     background-color: darkred;
-    width: 20px;
-    height: 30px;
+    width: 1rem;
+    height: 1rem;
     border-radius: 20%;
     text-align: center;
+    font-size: small;
 }
 
 .history {

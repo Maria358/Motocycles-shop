@@ -15,7 +15,7 @@ export default class BasketController {
             this.counter = this.model.getItemsFromBasket().length;
             this.view.countItem(this.counter);
             this.model.init();
-        }   
+        }
     };
 
     onAddToBasket = (choosenMoto) => {
@@ -51,8 +51,9 @@ export default class BasketController {
     };
 
     sortInBasket = (data, id) => {
-        const needModel = this.model.getNeedModel(data, id)
-        return needModel
+        const needModel = this.model.getNeedModel(data, id);
+
+        return needModel;
     }
 
     onAddOrder = (id, userName) => {
@@ -66,7 +67,7 @@ export default class BasketController {
         Observer.notify(Observer.events.sendMsgToTG, msg);
     };
 
-    receiveAmout = () => {
+    receiveAmount = () => {
         this.amount = this.model.countTotalAmount();
         return this.amount;
     }
