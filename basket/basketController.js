@@ -5,7 +5,7 @@ import { textMSG } from '../common/textMessage.js';
 
 export default class BasketController {
     constructor() {
-        this.view = new BasketView(this.onBasket, this.onAddOrder, this.onRemainingProducts, this.receiveAmount, this.sortInBasket);
+        this.view = new BasketView(this.onBasket, this.onAddOrder, this.onRemainingProducts, this.receiveAmout, this.sortInBasket, this.changeBasketCount);
         this.model = new BasketModel();
         Observer.subscribe(Observer.events.onAddToBskt, this.onAddToBasket);
     }
@@ -28,6 +28,15 @@ export default class BasketController {
         this.data = this.model.getItemsFromBasket();
         if (this.data && this.data.length !== 0) {
             this.view.render(this.data);
+        } else {
+            alert("You haven't added something to your basket yet!");
+        }
+    };
+
+    changeBasketCount = (id) => {
+        const res = this.onRemainingProducts(id)
+        if (res && res.length !== 0) {
+            this.view.render(res);
         } else {
             alert("You haven't added something to your basket yet!");
         }
