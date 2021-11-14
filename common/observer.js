@@ -29,5 +29,6 @@ export default class Observer {
         onAddToBskt: 'ADD MOTO TO BASKET',
         getAddedMoto: 'GET ADDED MOTO',
         sendMsgToTG: 'SEND MESSAGE TO TELEGRAM',
+        onOrder: 'TRABSFER DATA TO HISTORY',
     }
 }

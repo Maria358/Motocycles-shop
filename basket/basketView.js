@@ -1,5 +1,4 @@
 import View from './../common/view.js';
-import { testMSG } from '../common/textMessage.js';
 
 export default class BasketView extends View {
 
@@ -17,7 +16,6 @@ export default class BasketView extends View {
         super();
         this.linkDOMElements();
 
-        this.testMSG = testMSG;
         this.onAddOrder = onAddOrder;
         this.onRemainingProducts = onRemainingProducts;
 
@@ -54,8 +52,10 @@ export default class BasketView extends View {
             this.onRemainingProducts(id);
         }));
 
-        const order = document.querySelector('.order');
-        this.doMsg(data, order);
+        document.querySelectorAll(`.order`).forEach(btn => btn.addEventListener('click', (event) => {
+            this.onAddOrder(event.target.id);
+            this.changeCondModal('none');
+        }));
     }
 
     basketItemRender = (data) => {
@@ -72,14 +72,6 @@ export default class BasketView extends View {
                        <button type="button" id="${data.ID}d" class="delete btn btn-danger">Delete</button>
                 </div>
             </div>`;
-    };
-
-    doMsg = (data, selector) => {
-        selector.addEventListener('click', () => {
-            const textMessage = this.testMSG(data[0].Brand, data[0].Model);
-            this.removeModal();
-            this.onAddOrder(textMessage);
-        });
     };
 
     baseRender = (data) => {
