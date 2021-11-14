@@ -42,8 +42,8 @@ export default class BasketController {
     };
 
     sortInBasket = (data, id) => {
-        const rrr = this.model.getNeedModel(data, id)
-        return rrr
+        const needModel = this.model.getNeedModel(data, id)
+        return needModel
     }
 
     onAddOrder = (id, userName) => {
