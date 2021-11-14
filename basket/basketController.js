@@ -1,7 +1,7 @@
 import BasketView from './basketView.js';
 import Observer from './../common/observer.js';
 import BasketModel from './basketModel.js';
-import { testMSG } from '../common/textMessage.js';
+import { textMSG } from '../common/textMessage.js';
 
 export default class BasketController {
     constructor() {
@@ -15,7 +15,7 @@ export default class BasketController {
             this.counter = this.model.getItemsFromBasket().length;
             this.view.countItem(this.counter);
             this.model.init();
-        }
+        }   
     };
 
     onAddToBasket = (choosenMoto) => {
@@ -48,7 +48,7 @@ export default class BasketController {
 
     onAddOrder = (id, userName) => {
         const data = this.model.getItemById(id);
-        const textMessage = testMSG(data[0].Brand, data[0].Model, userName);
+        const textMessage = textMSG(data[0].Brand, data[0].Model, userName, data[0].Price);
         this.model.saveOrdersToLocal(data[0]);
         this.onSendMSG(textMessage);
     };
