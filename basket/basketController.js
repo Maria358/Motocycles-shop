@@ -5,7 +5,16 @@ import { textMSG } from '../common/textMessage.js';
 
 export default class BasketController {
     constructor() {
-        this.view = new BasketView(this.onBasket, this.onAddOrder, this.onRemainingProducts, this.receiveAmout, this.sortInBasket, this.changeBasketCount);
+        this.view = new BasketView(
+            this.onBasket,
+            this.onAddOrder,
+            this.onRemainingProducts,
+            this.receiveAmout,
+            this.sortInBasket,
+            this.changeBasketCount,
+            this.checkUsername,
+            this.checkUserEmail
+        );
         this.model = new BasketModel();
         Observer.subscribe(Observer.events.onAddToBskt, this.onAddToBasket);
     }
@@ -15,7 +24,7 @@ export default class BasketController {
             this.counter = this.model.getItemsFromBasket().length;
             this.view.countItem(this.counter);
             this.model.init();
-        }   
+        }
     };
 
     onAddToBasket = (choosenMoto) => {
@@ -34,7 +43,7 @@ export default class BasketController {
     };
 
     changeBasketCount = (id) => {
-        const res = this.onRemainingProducts(id)
+        const res = this.onRemainingProducts(id);
         if (res && res.length !== 0) {
             this.view.render(res);
         } else {
@@ -51,9 +60,9 @@ export default class BasketController {
     };
 
     sortInBasket = (data, id) => {
-        const needModel = this.model.getNeedModel(data, id)
-        return needModel
-    }
+        const needModel = this.model.getNeedModel(data, id);
+        return needModel;
+    };
 
     onAddOrder = (id, userName) => {
         const data = this.model.getItemById(id);
@@ -69,5 +78,15 @@ export default class BasketController {
     receiveAmout = () => {
         this.amount = this.model.countTotalAmount();
         return this.amount;
-    }
+    };
+
+    checkUsername = (value) => {
+        const validName = this.model.validInputName(value);
+        return validName;
+    };
+
+    checkUserEmail = (value) => {
+        const validEmail = this.model.validInputEmail(value);
+        return validEmail;
+    };
 }

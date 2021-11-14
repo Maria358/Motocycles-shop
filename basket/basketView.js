@@ -15,7 +15,16 @@ export default class BasketView extends View {
         { name: 'useremail', selector: '.useremail' }
     ];
 
-    constructor(onBasket, onAddOrder, onRemainingProducts, receiveAmout, sortInBasket, changeBasketCount) {
+    constructor(
+        onBasket,
+        onAddOrder,
+        onRemainingProducts,
+        receiveAmout,
+        sortInBasket,
+        changeBasketCount,
+        checkUsername,
+        checkUserEmail
+    ) {
         super();
         this.linkDOMElements();
 
@@ -23,6 +32,8 @@ export default class BasketView extends View {
         this.onRemainingProducts = onRemainingProducts;
         this.sortInBasket = sortInBasket;
         this.receiveAmout = receiveAmout;
+        this.checkUsername = checkUsername;
+        this.checkUserEmail = checkUserEmail;
         this.changeBasketCount = changeBasketCount;
         this.dom.addBtn.addEventListener('click', onBasket);
         this.dom.closeBasketBtn.addEventListener('click', () => {
@@ -64,6 +75,7 @@ export default class BasketView extends View {
                 this.baseRender(this.sortInBasket(data, event.target.id));
                 document.querySelector(`.window-btn-container`).style.display = 'none';
                 this.dom.form.style.display = 'block';
+                this.checkUsername(this.dom.username);
                 this.dom.formBtn.addEventListener('click', (e) => {
                     e.preventDefault();
                     this.onAddOrder(event.target.id, this.dom.username.value);
@@ -75,6 +87,26 @@ export default class BasketView extends View {
                 });
             })
         );
+
+        this.dom.username.addEventListener('blur', () => {
+            if (this.checkUsername(this.dom.username)) {
+                this.dom.username.parentElement.className = 'form-control success';
+            } else {
+                this.dom.username.parentElement.className = 'form-control error';
+            }
+        })  
+
+        this.dom.useremail.addEventListener('change', () => {
+            if (this.checkUserEmail(this.dom.useremail)) {
+                this.dom.useremail.parentElement.className = 'form-control success';
+            } else {
+                this.dom.useremail.parentElement.className = 'form-control error';
+            }
+
+            if(this.checkUsername(this.dom.username) && this.checkUserEmail(this.dom.useremail)){
+                this.dom.formBtn.removeAttribute('disabled')
+            }
+        })
 
         document.getElementById('total-amount').textContent = `${this.receiveAmout()}$`;
     }

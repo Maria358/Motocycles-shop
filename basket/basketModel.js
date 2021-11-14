@@ -9,7 +9,7 @@ export default class BasketModel extends MotocycleModel {
         this.localOrders = [];
         this.ordersId = [];
         this.searchByID;
-    };
+    }
 
     init = () => {
         this.localBasket = JSON.parse(localStorage.getItem(this.localBasketKey));
@@ -58,15 +58,35 @@ export default class BasketModel extends MotocycleModel {
 
     getNeedModel = (data, id) => {
         const needModel = data.filter((el) => el.ID === id);
-        return needModel
-    }
+        return needModel;
+    };
 
     countTotalAmount = () => {
-        const amount = this.localBasket.map(item => item.Price);
+        const amount = this.localBasket.map((item) => item.Price);
         this.result = amount.reduce((previousValue, currentValue) => {
             return +previousValue + +currentValue;
         }, 0);
 
         return this.result;
+    };
+
+    validInputName = (username) => {
+        const letters = /^[A-Za-z]+$/;
+        if (username.value.match(letters)) {
+            return true;
+        } else {
+            username.focus();
+            return false;
+        }
+    };
+
+    validInputEmail = (useremail) => {
+        const mailformat = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+        if (useremail.value.match(mailformat)) {
+            return true;
+        } else {
+            useremail.focus();
+            return false;
+        }
     };
 }
