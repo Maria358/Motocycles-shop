@@ -5,7 +5,7 @@ import { textMSG } from '../common/textMessage.js';
 
 export default class BasketController {
     constructor() {
-        this.view = new BasketView(this.onBasket, this.onAddOrder, this.onRemainingProducts, this.receiveAmout);
+        this.view = new BasketView(this.onBasket, this.onAddOrder, this.onRemainingProducts, this.receiveAmount, this.sortInBasket);
         this.model = new BasketModel();
         Observer.subscribe(Observer.events.onAddToBskt, this.onAddToBasket);
     }
@@ -15,7 +15,7 @@ export default class BasketController {
             this.counter = this.model.getItemsFromBasket().length;
             this.view.countItem(this.counter);
             this.model.init();
-        }   
+        }
     };
 
     onAddToBasket = (choosenMoto) => {
@@ -34,7 +34,6 @@ export default class BasketController {
     };
 
     onRemainingProducts = (id) => {
-        console.log('id in controller', id)
         const listProducts = this.model.remainingProducts(this.model.getItemsFromBasket(), id);
         this.view.baseRender(listProducts);
         this.counter = this.model.getItemsFromBasket().length;
@@ -43,8 +42,9 @@ export default class BasketController {
     };
 
     sortInBasket = (data, id) => {
-        const needModel = this.model.getNeedModel(data, id)
-        return needModel
+        const needModel = this.model.getNeedModel(data, id);
+
+        return needModel;
     }
 
     onAddOrder = (id, userName) => {
@@ -58,7 +58,7 @@ export default class BasketController {
         Observer.notify(Observer.events.sendMsgToTG, msg);
     };
 
-    receiveAmout = () => {
+    receiveAmount = () => {
         this.amount = this.model.countTotalAmount();
         return this.amount;
     }
