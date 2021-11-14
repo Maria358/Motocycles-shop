@@ -12,12 +12,13 @@ export default class BasketView extends View {
         { name: 'counter', selector: '#counterItem' }
     ]
 
-    constructor(onBasket, onAddOrder, onRemainingProducts) {
+    constructor(onBasket, onAddOrder, onRemainingProducts, receiveAmout) {
         super();
         this.linkDOMElements();
 
         this.onAddOrder = onAddOrder;
         this.onRemainingProducts = onRemainingProducts;
+        this.receiveAmout = receiveAmout;
 
         this.dom.addBtn.addEventListener('click', onBasket);
         this.dom.closeBasketBtn.addEventListener('click', () => {
@@ -56,6 +57,8 @@ export default class BasketView extends View {
             this.onAddOrder(event.target.id);
             this.changeCondModal('none');
         }));
+
+        document.getElementById('total-amount').textContent = `${this.receiveAmout()}$`;
     }
 
     basketItemRender = (data) => {

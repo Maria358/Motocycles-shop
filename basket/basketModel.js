@@ -9,11 +9,11 @@ export default class BasketModel extends MotocycleModel {
         this.localOrders = [];
         this.ordersId = [];
         this.searchByID;
-    }
+    };
 
     init = () => {
         this.localBasket = JSON.parse(localStorage.getItem(this.localBasketKey));
-    }
+    };
 
     addToBasket = (id) => {
         if (localStorage.getItem(this.localBasketKey)) {
@@ -39,7 +39,7 @@ export default class BasketModel extends MotocycleModel {
         localStorage.removeItem(this.localBasketKey);
         localStorage.setItem(this.localBasketKey, JSON.stringify(this.localBasket));
 
-        return listProd;
+        return this.localBasket;
     };
 
     saveOrdersToLocal = (order) => {
@@ -49,12 +49,21 @@ export default class BasketModel extends MotocycleModel {
         }
         this.localOrders.push(order);
         localStorage.setItem(this.localOrdersKey, JSON.stringify(this.localOrders));
-    }
+    };
 
     getItemById = (id) => {
         const moto = this.searchByID(id);
 
         return moto;
+    };
+
+    countTotalAmount = () => {
+        const amount = this.localBasket.map(item => item.Price);
+        this.result = amount.reduce((previousValue, currentValue) => {
+            return +previousValue + +currentValue;
+        }, 0);
+
+        return this.result;
     };
 
 }

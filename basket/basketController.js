@@ -5,7 +5,7 @@ import { testMSG } from '../common/textMessage.js';
 
 export default class BasketController {
     constructor() {
-        this.view = new BasketView(this.onBasket, this.onAddOrder, this.onRemainingProducts);
+        this.view = new BasketView(this.onBasket, this.onAddOrder, this.onRemainingProducts, this.receiveAmout);
         this.model = new BasketModel();
         Observer.subscribe(Observer.events.onAddToBskt, this.onAddToBasket);
     }
@@ -34,6 +34,7 @@ export default class BasketController {
     };
 
     onRemainingProducts = (id) => {
+        console.log('id in controller', id)
         const listProducts = this.model.remainingProducts(this.model.getItemsFromBasket(), id);
         this.view.baseRender(listProducts);
         this.counter = this.model.getItemsFromBasket().length;
@@ -51,4 +52,9 @@ export default class BasketController {
     onSendMSG = (msg) => {
         Observer.notify(Observer.events.sendMsgToTG, msg);
     };
+
+    receiveAmout = () => {
+        this.amount = this.model.countTotalAmount();
+        return this.amount;
+    }
 }

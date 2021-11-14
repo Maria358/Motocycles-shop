@@ -278,9 +278,9 @@ body {
     padding: 2px 16px;
 }
 
-.modal-footer {
-    padding: 2px 16px;
-    color: black;
+.mdl-footer {
+    padding: 0.5rem 5rem;
+    text-align: right;
 }
 .modal-body2 {
     padding: 2rem;
