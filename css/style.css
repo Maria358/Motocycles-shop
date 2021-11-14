@@ -221,10 +221,6 @@ body {
     display: none;
 }
 
-.error {
-    display: none;
-}
-
 .delete:hover,
 .order:hover {
     color: white;
