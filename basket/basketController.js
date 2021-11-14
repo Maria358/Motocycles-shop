@@ -5,7 +5,7 @@ import { testMSG } from '../common/textMessage.js';
 
 export default class BasketController {
     constructor() {
-        this.view = new BasketView(this.onBasket, this.onAddOrder, this.onRemainingProducts);
+        this.view = new BasketView(this.onBasket, this.onAddOrder, this.onRemainingProducts, this.sortInBasket);
         this.model = new BasketModel();
         Observer.subscribe(Observer.events.onAddToBskt, this.onAddToBasket);
     }
@@ -41,9 +41,14 @@ export default class BasketController {
         this.view.render(listProducts);
     };
 
-    onAddOrder = (id) => {
+    sortInBasket = (data, id) => {
+        const rrr = this.model.getNeedModel(data, id)
+        return rrr
+    }
+
+    onAddOrder = (id, userName) => {
         const data = this.model.getItemById(id);
-        const textMessage = testMSG(data[0].Brand, data[0].Model);
+        const textMessage = testMSG(data[0].Brand, data[0].Model, userName);
         this.model.saveOrdersToLocal(data[0]);
         this.onSendMSG(textMessage);
     };

@@ -1,7 +1,6 @@
 import View from './../common/view.js';
 
 export default class BasketView extends View {
-
     domStr = [
         { name: 'addBtn', selector: '.basket' },
         { name: 'modalBody', selector: '.modal-body2' },
@@ -9,16 +8,19 @@ export default class BasketView extends View {
         { name: 'counterContainer', selector: '.counter' },
         { name: 'closeBasketBtn', selector: '.closeBsktModal' },
         { name: 'modalContent', selector: '.modal-content2' },
-        { name: 'counter', selector: '#counterItem' }
-    ]
+        { name: 'counter', selector: '#counterItem' },
+        { name: 'form', selector: '.form' },
+        { name: 'formBtn', selector: '.form-order-btn' },
+        { name: 'username', selector: '.username' }
+    ];
 
-    constructor(onBasket, onAddOrder, onRemainingProducts) {
+    constructor(onBasket, onAddOrder, onRemainingProducts, sortInBasket) {
         super();
         this.linkDOMElements();
 
         this.onAddOrder = onAddOrder;
         this.onRemainingProducts = onRemainingProducts;
-
+        this.sortInBasket = sortInBasket;
         this.dom.addBtn.addEventListener('click', onBasket);
         this.dom.closeBasketBtn.addEventListener('click', () => {
             this.changeCondModal('none');
@@ -47,15 +49,25 @@ export default class BasketView extends View {
 
         this.baseRender(data);
 
-        document.querySelectorAll(`.delete`).forEach(btn => btn.addEventListener('click', (event) => {
-            const id = event.target.id.slice(0, event.target.id.length - 1);
-            this.onRemainingProducts(id);
-        }));
+        document.querySelectorAll(`.delete`).forEach((btn) =>
+            btn.addEventListener('click', (event) => {
+                const id = event.target.id.slice(0, event.target.id.length - 1);
+                this.onRemainingProducts(id);
+            })
+        );
 
-        document.querySelectorAll(`.order`).forEach(btn => btn.addEventListener('click', (event) => {
-            this.onAddOrder(event.target.id);
-            this.changeCondModal('none');
-        }));
+        document.querySelectorAll(`.order`).forEach((btn) =>
+            btn.addEventListener('click', (event) => {
+                this.baseRender(this.sortInBasket(data, event.target.id));
+                this.dom.form.style.display = 'block';
+                this.dom.formBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const userName = this.dom.username.value;
+                    this.onAddOrder(event.target.id, userName);
+                    this.changeCondModal('none');
+                });
+            })
+        );
     }
 
     basketItemRender = (data) => {
@@ -77,5 +89,5 @@ export default class BasketView extends View {
     baseRender = (data) => {
         const basketItem = data.map((item) => this.basketItemRender(item));
         this.insertHTML(basketItem, this.dom.modalBody);
-    }
+    };
 }

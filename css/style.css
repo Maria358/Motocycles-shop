@@ -215,6 +215,12 @@ body {
     margin-right: 0.5rem;
 }
 
+.form {
+    margin: 0 auto;
+    width: 80%;
+    display: none;
+}
+
 .delete:hover,
 .order:hover {
     color: white;
