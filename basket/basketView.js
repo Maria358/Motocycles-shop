@@ -59,11 +59,11 @@ export default class BasketView extends View {
         document.querySelectorAll(`.order`).forEach((btn) =>
             btn.addEventListener('click', (event) => {
                 this.baseRender(this.sortInBasket(data, event.target.id));
+                document.querySelector(`.window-btn-container`).style.display = 'none';
                 this.dom.form.style.display = 'block';
                 this.dom.formBtn.addEventListener('click', (e) => {
                     e.preventDefault();
-                    const userName = this.dom.username.value;
-                    this.onAddOrder(event.target.id, userName);
+                    this.onAddOrder(event.target.id, this.dom.username.value);
                     this.changeCondModal('none');
                 });
             })
