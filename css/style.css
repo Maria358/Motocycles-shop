@@ -491,7 +491,7 @@ body {
         width: fit-content;
     }
     .item-details .item-image {
-        width: 20rem;
+        width: 40rem;
         height: 5rem;
     }
     .cart-item-name {
@@ -507,6 +507,38 @@ body {
     .controls h2,
     .controls i {
         font-size: 1rem;
+    }
+    .order,
+    .delete {
+        font-size: 0.7rem;
+        width: 10%;
+        margin-left: 3rem;
+        margin-top: 0.2rem;
+    }
+    .window-btn-container {
+        width: fit-content;
+    }
+    .mdl-footer h3 {
+        font-size: 1.3rem;
+        text-align: center;
+    }
+
+    .window-btn-container {
+        text-align: right important!;
+    }
+    .modal-body > p {
+        margin-top: 2rem;
+        text-align: left;
+    }
+    .modal-body > img {
+        margin: 1rem 4rem 2rem;
+    }
+    .modal-header > p {
+        font-size: 1.5rem;
+    }
+    .modal-content2 {
+        width: 70%;
+        height: fit-content;
     }
 }
 .basketItem-container {
@@ -531,4 +563,8 @@ body {
 }
 .history-modal {
     display: none;
+}
+.mdl-footer {
+    margin: 1rem 2rem 2rem 0;
+    text-align: right;
 }

@@ -12,7 +12,7 @@ export default class BasketView extends View {
         { name: 'form', selector: '.form' },
         { name: 'formBtn', selector: '.form-order-btn' },
         { name: 'username', selector: '.username' },
-       { name: 'useremail', selector: '.useremail' },
+        { name: 'useremail', selector: '.useremail' },
         { name: 'footer', selector: '.mdl-footer' }
     ];
 
@@ -79,7 +79,7 @@ export default class BasketView extends View {
             })
         );
 
-        document.getElementById('total-amount').textContent = `${this.receiveAmount()}$`;
+        document.getElementById('total-amount').textContent = `${this.receiveAmout()}$`;
     }
 
     basketItemRender = (data) => {

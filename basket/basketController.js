@@ -5,7 +5,7 @@ import { textMSG } from '../common/textMessage.js';
 
 export default class BasketController {
     constructor() {
-        this.view = new BasketView(this.onBasket, this.onAddOrder, this.onRemainingProducts, this.receiveAmout, this.sortInBasket, this.changeBasketCount);
+        this.view = new BasketView(this.onBasket, this.onAddOrder, this.onRemainingProducts, this.receiveAmount, this.sortInBasket, this.changeBasketCount);
         this.model = new BasketModel();
         Observer.subscribe(Observer.events.onAddToBskt, this.onAddToBasket);
     }
