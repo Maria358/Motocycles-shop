@@ -35,7 +35,7 @@ export default class BasketModel extends MotocycleModel {
 
     remainingProducts = (data, id) => {
         const basketItems = JSON.parse(localStorage.getItem(this.localBasketKey));
-        this.localBasket = basketItems.filter(item => item.ID !== id);
+        this.localBasket = basketItems.filter((item) => item.ID !== id);
         localStorage.removeItem(this.localBasketKey);
         localStorage.setItem(this.localBasketKey, JSON.stringify(this.localBasket));
 
@@ -53,9 +53,13 @@ export default class BasketModel extends MotocycleModel {
 
     getItemById = (id) => {
         const moto = this.searchByID(id);
-
         return moto;
     };
+
+    getNeedModel = (data, id) => {
+        const needModel = data.filter((el) => el.ID === id);
+        return needModel
+    }
 
     countTotalAmount = () => {
         const amount = this.localBasket.map(item => item.Price);
@@ -65,5 +69,4 @@ export default class BasketModel extends MotocycleModel {
 
         return this.result;
     };
-
 }
