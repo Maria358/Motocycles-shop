@@ -9,7 +9,7 @@ export default class BasketController {
             this.onBasket,
             this.onAddOrder,
             this.onRemainingProducts,
-            this.receiveAmout,
+            this.receiveAmount,
             this.sortInBasket,
             this.changeBasketCount,
             this.checkUsername,
