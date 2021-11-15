@@ -75,7 +75,7 @@ export default class BasketController {
         Observer.notify(Observer.events.sendMsgToTG, msg);
     };
 
-    receiveAmout = () => {
+    receiveAmount = () => {
         this.amount = this.model.countTotalAmount();
         return this.amount;
     };

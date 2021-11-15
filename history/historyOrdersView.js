@@ -23,12 +23,25 @@ export default class HistoryOrdersView extends View {
     render(data) {
         this.changeCondModal('block');
         this.dom.modalHistory.style.display = 'block'
-        const historyItem = data.map(data => this.cardRender(data));
+
+        const historyItem = data.map(data => this.historyItemRender(data));
+
         this.insertHTML(historyItem, this.dom.historyBody);
 
         this.dom.close.addEventListener('click', () => {
-            console.log('close')
             this.changeCondModal('none');
         });
+    }
+
+    historyItemRender = (data) => {
+        return `<div class="cart-item">
+        <div class="item-details">
+          <img src=${data.Image} alt="..." class="item-image">    
+             <div class="cart-item-data">
+                <h4 class="cart-item-name">${data.Brand} ${data.Model}</h4>
+                <p class="cart-item-price">Price: $${data.Price}</p>
+             </div>
+      </div>           
+  </div>`
     }
 }

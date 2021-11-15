@@ -12,7 +12,8 @@ export default class BasketView extends View {
         { name: 'form', selector: '.form' },
         { name: 'formBtn', selector: '.form-order-btn' },
         { name: 'username', selector: '.username' },
-        { name: 'useremail', selector: '.useremail' }
+        { name: 'useremail', selector: '.useremail' },
+        { name: 'footer', selector: '.mdl-footer' }
     ];
 
     constructor(
@@ -35,6 +36,7 @@ export default class BasketView extends View {
         this.checkUsername = checkUsername;
         this.checkUserEmail = checkUserEmail;
         this.changeBasketCount = changeBasketCount;
+
         this.dom.addBtn.addEventListener('click', onBasket);
         this.dom.closeBasketBtn.addEventListener('click', () => {
             this.changeCondModal('none');
@@ -73,6 +75,7 @@ export default class BasketView extends View {
         document.querySelectorAll(`.order`).forEach((btn) =>
             btn.addEventListener('click', (event) => {
                 this.baseRender(this.sortInBasket(data, event.target.id));
+                this.dom.footer.style.display = 'none';
                 document.querySelector(`.window-btn-container`).style.display = 'none';
                 this.dom.form.style.display = 'block';
                 this.checkUsername(this.dom.username);
@@ -131,4 +134,5 @@ export default class BasketView extends View {
         const basketItem = data.map((item) => this.basketItemRender(item));
         this.insertHTML(basketItem, this.dom.modalBody);
     };
+
 }

@@ -24,6 +24,10 @@ export default class View {
                 <p class="cart-item-price">Price: $${data.Price}</p>
              </div>
       </div>           
+      <div class="window-btn-container">
+             <button type="button" id=${data.ID} class="order btn btn-primary">Order</button>
+             <button type="button" id="${data.ID}d" class="delete btn btn-danger">Delete</button>
+      </div>
   </div>`
     }
 }

@@ -62,7 +62,7 @@ export default class BasketModel extends MotocycleModel {
     };
 
     countTotalAmount = () => {
-        const amount = this.localBasket.map((item) => item.Price);
+        const amount = this.localBasket.map(item => item.Price);
         this.result = amount.reduce((previousValue, currentValue) => {
             return +previousValue + +currentValue;
         }, 0);
