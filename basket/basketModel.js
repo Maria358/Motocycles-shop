@@ -72,7 +72,7 @@ export default class BasketModel extends MotocycleModel {
 
     validInputName = (username) => {
         const letters = /^[A-Za-z]+$/;
-        if (username.value.match(letters)) {
+        if (username.value.match(letters) && username.value.length >= 2) {
             return true;
         } else {
             username.focus();
@@ -82,7 +82,7 @@ export default class BasketModel extends MotocycleModel {
 
     validInputEmail = (useremail) => {
         const mailformat = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-        if (useremail.value.match(mailformat)) {
+        if (useremail.value.match(mailformat) && useremail.value.length > 0) {
             return true;
         } else {
             useremail.focus();
