@@ -40,6 +40,7 @@ export default class BasketView extends View {
         this.dom.addBtn.addEventListener('click', onBasket);
         this.dom.closeBasketBtn.addEventListener('click', () => {
             this.changeCondModal('none');
+            this.dom.form.style.display = 'none';
         });
     }
 
@@ -74,11 +75,12 @@ export default class BasketView extends View {
 
         document.querySelectorAll(`.order`).forEach((btn) =>
             btn.addEventListener('click', (event) => {
+                
                 this.baseRender(this.sortInBasket(data, event.target.id));
                 this.dom.footer.style.display = 'none';
                 document.querySelector(`.window-btn-container`).style.display = 'none';
                 this.dom.form.style.display = 'block';
-                this.checkUsername(this.dom.username);
+
                 this.dom.formBtn.addEventListener('click', (e) => {
                     e.preventDefault();
                     this.onAddOrder(event.target.id, this.dom.username.value);
@@ -92,24 +94,16 @@ export default class BasketView extends View {
         );
 
         this.dom.username.addEventListener('blur', () => {
-            if (this.checkUsername(this.dom.username)) {
-                this.dom.username.parentElement.className = 'form-control success';
-            } else {
-                this.dom.username.parentElement.className = 'form-control error';
-            }
-        })  
+            this.checkValid(this.dom.username, this.checkUsername);
+        });
 
-        this.dom.useremail.addEventListener('change', () => {
-            if (this.checkUserEmail(this.dom.useremail)) {
-                this.dom.useremail.parentElement.className = 'form-control success';
-            } else {
-                this.dom.useremail.parentElement.className = 'form-control error';
-            }
+        this.dom.useremail.addEventListener('blur', () => {
+            this.checkValid(this.dom.useremail, this.checkUserEmail);
 
-            if(this.checkUsername(this.dom.username) && this.checkUserEmail(this.dom.useremail)){
-                this.dom.formBtn.removeAttribute('disabled')
+            if (this.checkUsername(this.dom.username) && this.checkUserEmail(this.dom.useremail)) {
+                this.dom.formBtn.removeAttribute('disabled');
             }
-        })
+        });
 
         document.getElementById('total-amount').textContent = `${this.receiveAmout()}$`;
     }
@@ -117,7 +111,7 @@ export default class BasketView extends View {
     basketItemRender = (data) => {
         return `<div class="cart-item">
                   <div class="item-details">
-                    <img src=${data.Image} alt="..." class="item-image">    
+                  <img src=${data.Image} alt="..." class="item-image"> 
                        <div class="cart-item-data">
                           <h4 class="cart-item-name">${data.Brand} ${data.Model}</h4>
                           <p class="cart-item-price">Price: $${data.Price}</p>
@@ -135,4 +129,11 @@ export default class BasketView extends View {
         this.insertHTML(basketItem, this.dom.modalBody);
     };
 
+    checkValid = (selector, method) => {
+        if (method(selector)) {
+            selector.parentElement.className = 'form-control success';
+        } else {
+            selector.parentElement.className = 'form-control error';
+        }
+    };
 }
