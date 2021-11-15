@@ -96,15 +96,21 @@
               </div>
               <form class="form">
                 <div class="mb-3">
-                  <div class="mb-3">
+                  
+                  <div class="form-control">
                     <label for="exampleInputName" class="form-label">Name</label>
-                    <input type="text" class="form-control username" placeholder="Your name" id="exampleInputName">
+                    <input type="text" class="form-control username inp" placeholder="Your name" id="exampleInputName">
+                    <small>This field is required</small>
                   </div>
-                  <label for="exampleInputEmail1" class="form-label">Email address</label>
-                  <input type="email" class="form-control useremail" placeholder="Email" id="exampleInputEmail1" aria-describedby="emailHelp">
+                  <div class="form-control">
+                    <label for="exampleInputEmail1" class="form-label">Email address</label>
+                  <input type="email" class="form-control useremail inp" placeholder="Email" id="exampleInputEmail1" aria-describedby="emailHelp">
                   <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                  <small>Enter mail in the format: email@mail.com</small>
+                  </div>
+                  
                 </div>
-                <button type="submit" class="btn btn-primary form-order-btn">Submit</button>
+                <button type="submit" disabled class="btn btn-primary form-order-btn">Order</button>
               </form>
               <div class="mdl-footer">
                 <h3>Total amount: <span id="total-amount">0</span></h3>
