@@ -11,3 +11,4 @@
 - validation.
 - history of orders (Local storage).
 - server for telegram bot token encrypting.
+### Application was written via JavaScript Vanilla.
